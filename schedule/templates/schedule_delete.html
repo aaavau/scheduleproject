@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スケジュールを削除</title>
+    <!-- BootstrapのCSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- ヘッダー -->
+        <h1 class="text-center text-danger mb-4">スケジュールを削除</h1>
+
+        <!-- スケジュール情報 -->
+        <div class="alert alert-warning">
+            <p class="mb-3">以下のスケジュールを削除しますか？</p>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>タイトル:</strong> {{ object.title }}</li>
+                <li class="list-group-item"><strong>説明:</strong> {{ object.description }}</li>
+                <li class="list-group-item"><strong>開始時間:</strong> {{ object.start_time }}</li>
+                <li class="list-group-item"><strong>終了時間:</strong> {{ object.end_time }}</li>
+            </ul>
+        </div>
+
+        <!-- フォーム -->
+        <form method="post">
+            {% csrf_token %}
+            <div class="d-flex justify-content-between mt-4">
+                <button type="submit" class="btn btn-danger">削除</button>
+                <a href="{% url 'schedule:schedule_list' %}" class="btn btn-secondary">キャンセル</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- BootstrapのJS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

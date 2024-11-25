@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}お問い合わせ{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">お問い合わせ</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">送信</button>
+    </form>
+    <P></P>
+    <a href="{% url 'schedule:home' %}" class="btn btn-primary">ホームに戻る</a> 
+</div>
+{% endblock %}

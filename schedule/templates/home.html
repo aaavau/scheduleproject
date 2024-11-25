@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}ホーム{% endblock %}
+{% block content %}
+<div class="container text-center">
+    <h2>ようこそ！スケジュール管理アプリへ</h2>
+    <p>このアプリでは、あなたのスケジュールを簡単に管理できます。</p>
+        <a href="{% url 'schedule:schedule_list' %}" class="btn btn-primary">スケジュールを閲覧する</a>
+        <a href="{% url 'schedule:contact' %}" class="btn btn-gray">お問い合わせ</a>
+</div>
+
+
+{% endblock %}

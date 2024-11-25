@@ -1,0 +1,12 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>スケジュール完了確認</h1>
+<p>このスケジュールを完了しますか？</p>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">完了</button>
+</form>
+{% endblock %}

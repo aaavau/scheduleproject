@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>スケジュール一覧</title>
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="mb-2">スケジュール一覧</h1>
+    
+    <!-- 検索フォーム -->
+    <div class="text-center mb-3">
+        <strong>【スケジュールの検索】</strong></div>    
+    <form method="get" class="mb-3">
+        <div class="row">
+            <div class="col">
+                <input type="text" name="title" class="form-control" placeholder="タイトル検索" value="{{ request.GET.title }}">
+            </div>
+            <div class="col">
+                <input type="date" name="start_date" class="form-control" value="{{ request.GET.start_date }}">
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary">検索</button>
+            </div>
+        </div>
+    </form>
+    
+    <!-- スケジュールテーブル -->
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>タイトル</th>
+                <th>内容</th>
+                <th>開始日時</th>
+                <th>終了日時</th>
+                <th>完了</th>
+                <th>アクション</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for schedule in schedules %}
+            <tr>
+                <td>{{ schedule.title }}</td>
+                <td>{{ schedule.description }}</td>
+                <td>{{ schedule.start_time }}</td>
+                <td>{{ schedule.end_time }}</td>
+                <td>{{ schedule.is_completed|yesno:"はい,いいえ" }}</td>
+                <td>
+                    {% if not schedule.is_completed %}
+                    <form action="{% url 'schedule:complete_schedule' schedule.pk %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-success">完了</button>                    
+                    </form>
+                    {% else %}
+                    完了済み
+                    {% endif %}
+                    <a href="{% url 'schedule:schedule_update' pk=schedule.id %}" class="btn btn-sm btn-warning">更新</a>
+                    <a href="{% url 'schedule:schedule_delete' pk=schedule.id %}" class="btn btn-sm btn-danger">削除</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <!-- アクションボタン -->
+    <a href="{% url 'schedule:home' %}" class="btn btn-primary">ホームに戻る</a>    
+    <a href="{% url 'schedule:schedule_create' %}" class="btn btn-success">新しいスケジュールを追加</a>
+</div>
+
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

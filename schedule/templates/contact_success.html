@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}お問い合わせ送信完了{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h1>お問い合わせを受け付けました</h1>
+    <p>ありがとうございました。後日、担当者よりご連絡いたします。</p>
+    <a href="{% url 'schedule:home' %}" class="btn btn-primary">ホームに戻る</a>
+</div>
+{% endblock %}
